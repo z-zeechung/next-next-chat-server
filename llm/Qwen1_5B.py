@@ -9,7 +9,6 @@ class Qwen1_5B(LLM):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         model_name = "Qwen/Qwen2.5-1.5B-Instruct"
-
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
             torch_dtype="auto",
@@ -35,8 +34,6 @@ class Qwen1_5B(LLM):
         output_chunk_size = 1  # 每次生成的词元数量
         max_new_tokens = 512  # 总共要生成的词元数量上限
         current_num_tokens = 0  # 当前已生成的词元数量
-
-        result = ""
         
         # 开始流式生成
         with torch.no_grad():
@@ -59,8 +56,7 @@ class Qwen1_5B(LLM):
                 
                 # 解码新生成的词元并产出（yield）它们
                 decoded_tokens = self.tokenizer.decode(new_tokens[0], skip_special_tokens=True)
-                result += decoded_tokens
-                yield result  # 这里可能需要根据实际情况调整，以确保按词元或适当的文本块产出
+                yield decoded_tokens  # 这里可能需要根据实际情况调整，以确保按词元或适当的文本块产出
                 
                 # 更新输入以包含新生成的词元，为下一轮生成做准备
                 model_inputs = self.tokenizer.encode_plus(
