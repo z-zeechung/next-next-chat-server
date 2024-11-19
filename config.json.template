@@ -1,0 +1,8 @@
+{
+  "mirror": "https://huggingface.co",
+  "chat": "qwen-1.5b",
+  "embed": "bge-small-en",
+  "caption": "dummy",
+  "paint": "dummy",
+  "search": "baidu"
+}

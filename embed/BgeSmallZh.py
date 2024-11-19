@@ -11,4 +11,4 @@ class BgeSmallZh(Embed):
 
     def embed(self, texts: List[str]) -> List[Vector]:
         embeddings = self.model.encode(texts)
-        return [list(v) for v in embeddings]
+        return [[float(i) for i in v] for v in embeddings]
